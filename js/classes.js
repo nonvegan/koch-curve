@@ -3,7 +3,7 @@ class KochSegment {
     this.pos = pos;
     this.dir = dir;
   }
-  static angle = Math.PI / 3;
+  static angle;
   
   children() {
     const scaledDir = this.dir.copy().scale(1 / 3);
