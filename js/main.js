@@ -60,7 +60,7 @@ function animate() {
 function reset() {
   iterationCount = 0;
   setupSnowFlake();
- canvas.style.cursor = 'pointer';
+  canvas.style.cursor = 'pointer';
   animate();
 }
 
