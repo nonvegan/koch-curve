@@ -4,10 +4,11 @@ const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 const resetButton = document.getElementById("resetButton");
 const switchInput = document.getElementById("switchInput")
+const measure = document.getElementById("measure")
 const width = Math.min(window.innerWidth, window.innerHeight) / 1.6;
 const height = width;
 
-const MAX_ITERATIONS = 10;
+const MAX_ITERATIONS = 8;
 const snowFlakeSize = width / 2;
 let curveAngle = Math.PI / 3;
 let kochSnowFlake = [];
@@ -77,3 +78,6 @@ function click() {
 
 setup();
 animate();
+
+
+
