@@ -7,7 +7,7 @@ const switchInput = document.getElementById("switchInput");
 const width = Math.min(window.innerWidth, window.innerHeight) / 1.6;
 const height = width;
 
-const MAX_ITERATIONS = 9;
+const MAX_ITERATIONS = 8;
 let snowFlakeSize = width / 2;
 let innerAngle = (KochSegment.angle = Math.PI / 3);
 let kochSnowFlake = [];
