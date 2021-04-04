@@ -26,6 +26,7 @@ function setupSnowFlake() {
 function setup() {
   canvas.width = width;
   canvas.height = height;
+  canvas.style.cursor = 'pointer';
   ctx.font = `${width / 25}px Arial`;
   ctx.strokeStyle = ctx.fillStyle = "#f92672";
   ctx.lineWidth = 1;
@@ -65,6 +66,7 @@ function animate() {
 function reset() {
   iterationCount = 0;
   setupSnowFlake();
+ canvas.style.cursor = 'pointer';
   animate();
 }
 
@@ -77,6 +79,9 @@ function split() {
       }
     }
     kochSnowFlake = newSegments;
+    if(iterationCount==MAX_ITERATIONS){
+      canvas.style.cursor="auto";
+    }
     animate();
   }
 }
