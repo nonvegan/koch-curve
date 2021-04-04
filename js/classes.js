@@ -5,13 +5,6 @@ class KochSegment {
     this.angle = angle;
   }
 
-  draw(ctx) {
-    ctx.beginPath();
-    ctx.moveTo(this.pos.x, this.pos.y);
-    ctx.lineTo(this.pos.x + this.dir.x, this.pos.y + this.dir.y);
-    ctx.stroke();
-  }
-
   children() {
     const children = [];
     const scaledDir = this.dir.copy().scale(1 / 3);

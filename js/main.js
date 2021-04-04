@@ -7,7 +7,7 @@ const switchInput = document.getElementById("switchInput")
 const width = Math.min(window.innerWidth, window.innerHeight) / 1.6;
 const height = width;
 
-const MAX_ITERATIONS = 8;
+const MAX_ITERATIONS = 10;
 const snowFlakeSize = width / 2;
 let curveAngle = Math.PI / 3;
 let kochSnowFlake = [];
@@ -16,12 +16,11 @@ let iterationCount = 0;
 function setupSnowFlake() {
   let max_height = (2 / 3) * Math.sin(curveAngle) * snowFlakeSize;
   kochSnowFlake = [
-    new KochSegment(new Vector((width - snowFlakeSize) / 2, (height - max_height) / 2), new Vector(snowFlakeSize, 0),  -(switchInput.checked*2 -1)*curveAngle),
     new KochSegment(new Vector((width - snowFlakeSize) / 2, (height - max_height) / 2), new Vector(snowFlakeSize, 0).rotate(curveAngle), -(switchInput.checked*2 -1)*-curveAngle),
-    new KochSegment(new Vector(snowFlakeSize, 0).rotate(curveAngle).add(new Vector((width - snowFlakeSize) / 2, (height - max_height) / 2)), new Vector(snowFlakeSize, 0).rotate(-curveAngle),-(switchInput.checked*2 -1)*-curveAngle),
+    new KochSegment(new Vector(snowFlakeSize, 0).rotate(curveAngle).add(new Vector((width - snowFlakeSize) / 2, (height - max_height) / 2)), new Vector(snowFlakeSize, 0).rotate(-curveAngle),-(switchInput.checked*2 -1)*-curveAngle), 
+    new KochSegment(new Vector(width-snowFlakeSize/2,(height - max_height) / 2), new Vector(-snowFlakeSize, 0),  (switchInput.checked*2 -1)*curveAngle),
   ];
 }
-
 function setup() {
   canvas.width = width;
   canvas.height = height;
@@ -41,10 +40,15 @@ function clear() {
 }
 
 function draw() {
-  for (const segment of kochSnowFlake) {
-    segment.draw(ctx);
-  }
-  ctx.fillText("nIterations: " + iterationCount + ", nSegments: " + kochSnowFlake.length, width / 50, width / 25);
+  ctx.beginPath();
+  ctx.moveTo(kochSnowFlake[0].pos.x,kochSnowFlake[0].pos.y)
+   for (let i = 1; i < kochSnowFlake.length; i++) {
+    ctx.lineTo(kochSnowFlake[i].pos.x,kochSnowFlake[i].pos.y);
+  } 
+  let lastIndex = kochSnowFlake.length -1;
+  ctx.lineTo(kochSnowFlake[lastIndex].pos.x+kochSnowFlake[lastIndex].dir.x,kochSnowFlake[lastIndex].pos.y+kochSnowFlake[lastIndex].dir.y);
+  ctx.stroke();
+  ctx.fillText("nIterations: " + iterationCount + ", nSegments: " + 3*Math.pow(4,iterationCount), width / 50, width / 25);
 }
 
 function animate() {
