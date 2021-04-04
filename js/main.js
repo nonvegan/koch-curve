@@ -3,6 +3,7 @@ import { Vector, KochSegment } from "./classes.js";
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 const resetButton = document.getElementById("resetButton");
+const switchInput = document.getElementById("switchInput")
 const width = Math.min(window.innerWidth, window.innerHeight) / 1.6;
 const height = width;
 
@@ -15,9 +16,9 @@ let iterationCount = 0;
 function setupSnowFlake() {
   let max_height = (2 / 3) * Math.sin(curveAngle) * snowFlakeSize;
   kochSnowFlake = [
-    new KochSegment(new Vector((width - snowFlakeSize) / 2, (height - max_height) / 2), new Vector(snowFlakeSize, 0), curveAngle),
-    new KochSegment(new Vector((width - snowFlakeSize) / 2, (height - max_height) / 2), new Vector(snowFlakeSize, 0).rotate(curveAngle), -curveAngle),
-    new KochSegment(new Vector(snowFlakeSize, 0).rotate(curveAngle).add(new Vector((width - snowFlakeSize) / 2, (height - max_height) / 2)), new Vector(snowFlakeSize, 0).rotate(-curveAngle),-curveAngle),
+    new KochSegment(new Vector((width - snowFlakeSize) / 2, (height - max_height) / 2), new Vector(snowFlakeSize, 0),  -(switchInput.checked*2 -1)*curveAngle),
+    new KochSegment(new Vector((width - snowFlakeSize) / 2, (height - max_height) / 2), new Vector(snowFlakeSize, 0).rotate(curveAngle), -(switchInput.checked*2 -1)*-curveAngle),
+    new KochSegment(new Vector(snowFlakeSize, 0).rotate(curveAngle).add(new Vector((width - snowFlakeSize) / 2, (height - max_height) / 2)), new Vector(snowFlakeSize, 0).rotate(-curveAngle),-(switchInput.checked*2 -1)*-curveAngle),
   ];
 }
 
@@ -28,6 +29,9 @@ function setup() {
   ctx.strokeStyle = ctx.fillStyle = "#f92672";
   ctx.lineWidth = 1;
   resetButton.addEventListener("click", reset);
+  switchInput.addEventListener("change", (evt)=>{
+    reset();
+  })
   canvas.addEventListener("click", click);
   setupSnowFlake();
 }
