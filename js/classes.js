@@ -1,17 +1,17 @@
 class KochSegment {
-  constructor(pos, dir, angle) {
+  constructor(pos, dir) {
     this.pos = pos;
     this.dir = dir;
-    this.angle = angle;
   }
-
+  static angle = Math.PI / 3;
+  
   children() {
-    const children = [];
     const scaledDir = this.dir.copy().scale(1 / 3);
-    children.push(new KochSegment(this.pos, scaledDir, this.angle));
-    children.push(new KochSegment(children[0].pos.copy().add(children[0].dir), scaledDir.copy().rotate(-this.angle), this.angle));
-    children.push(new KochSegment(children[1].pos.copy().add(children[1].dir), scaledDir.copy().rotate(this.angle), this.angle));
-    children.push(new KochSegment(children[2].pos.copy().add(children[2].dir), scaledDir, this.angle));
+    const children = [];
+    children.push(new KochSegment(this.pos, scaledDir));
+    children.push(new KochSegment(children[0].pos.copy().add(children[0].dir), scaledDir.copy().rotate(KochSegment.angle)));
+    children.push(new KochSegment(children[1].pos.copy().add(children[1].dir), scaledDir.copy().rotate(-KochSegment.angle)));
+    children.push(new KochSegment(children[2].pos.copy().add(children[2].dir), scaledDir));
     return children;
   }
 }
@@ -35,10 +35,10 @@ class Vector {
     return this;
   }
   rotate(omega) {
-    let x2 = Math.cos(omega) * this.x - Math.sin(omega) * this.y;
-    let y2 = Math.sin(omega) * this.x + Math.cos(omega) * this.y;
-    this.x = x2;
-    this.y = y2;
+    [this.x, this.y] = [
+      Math.cos(omega) * this.x - Math.sin(omega) * this.y, 
+      Math.sin(omega) * this.x + Math.cos(omega) * this.y
+    ];
     return this;
   }
 }

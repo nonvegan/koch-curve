@@ -17,9 +17,9 @@ let iterationCount = 0;
 function setupSnowFlake() {
   let max_height = (2 / 3) * Math.sin(curveAngle) * snowFlakeSize;
   kochSnowFlake = [
-    new KochSegment(new Vector((width - snowFlakeSize) / 2, (height - max_height) / 2), new Vector(snowFlakeSize, 0).rotate(curveAngle), -(switchInput.checked*2 -1)*-curveAngle),
-    new KochSegment(new Vector(snowFlakeSize, 0).rotate(curveAngle).add(new Vector((width - snowFlakeSize) / 2, (height - max_height) / 2)), new Vector(snowFlakeSize, 0).rotate(-curveAngle),-(switchInput.checked*2 -1)*-curveAngle), 
-    new KochSegment(new Vector(width-snowFlakeSize/2,(height - max_height) / 2), new Vector(-snowFlakeSize, 0),  (switchInput.checked*2 -1)*curveAngle),
+    new KochSegment(new Vector((width - snowFlakeSize) / 2, (height - max_height) / 2), new Vector(snowFlakeSize, 0).rotate(curveAngle)),
+    new KochSegment(new Vector(snowFlakeSize, 0).rotate(curveAngle).add(new Vector((width - snowFlakeSize) / 2, (height - max_height) / 2)), new Vector(snowFlakeSize, 0).rotate(-curveAngle)), 
+    new KochSegment(new Vector(width-snowFlakeSize/2,(height - max_height) / 2), new Vector(-snowFlakeSize, 0)),
   ];
 }
 function setup() {
@@ -30,6 +30,7 @@ function setup() {
   ctx.lineWidth = 1;
   resetButton.addEventListener("click", reset);
   switchInput.addEventListener("change", (evt)=>{
+    KochSegment.angle*=-1;
     reset();
   })
   canvas.addEventListener("click", click);
