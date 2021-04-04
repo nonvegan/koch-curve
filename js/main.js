@@ -30,15 +30,9 @@ function setup() {
   ctx.font = `${width / 25}px Arial`;
   ctx.strokeStyle = ctx.fillStyle = "#f92672";
   ctx.lineWidth = 1;
-  resetButton.addEventListener("click", reset);
-  switchInput.addEventListener("change", (evt) => {
-    KochSegment.angle *= -1;
-    const previousCount = iterationCount;
-    reset();
-    while (iterationCount < previousCount) 
-      split();
-  });
   canvas.addEventListener("click", split);
+  resetButton.addEventListener("click", reset);
+  switchInput.addEventListener("change", invert);
   setupSnowFlake();
 }
 
@@ -84,6 +78,14 @@ function split() {
     }
     animate();
   }
+}
+
+function invert() {
+  KochSegment.angle *= -1;
+  const previousCount = iterationCount;
+  reset();
+  while (iterationCount < previousCount)
+    split();
 }
 
 setup();
