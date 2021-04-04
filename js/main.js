@@ -22,10 +22,11 @@ function setupSnowFlake() {
     new KochSegment(new Vector(width - snowFlakeSize / 2, (height - max_height) / 2), new Vector(-snowFlakeSize, 0)),
   ];
 }
+
 function setup() {
   canvas.width = width;
   canvas.height = height;
-  ctx.font = `${width / 30}px Arial`;
+  ctx.font = `${width / 25}px Arial`;
   ctx.strokeStyle = ctx.fillStyle = "#f92672";
   ctx.lineWidth = 1;
   resetButton.addEventListener("click", reset);
@@ -53,7 +54,7 @@ function draw() {
   let lastIndex = kochSnowFlake.length - 1;
   ctx.lineTo(kochSnowFlake[lastIndex].pos.x + kochSnowFlake[lastIndex].dir.x, kochSnowFlake[lastIndex].pos.y + kochSnowFlake[lastIndex].dir.y);
   ctx.stroke();
-  ctx.fillText("nIterations: " + iterationCount + ", nSegments: " + 3 * Math.pow(4, iterationCount), width / 50, width / 25);
+  ctx.fillText("nIterations: " + iterationCount + ", nSegments: " + 3 * Math.pow(4, iterationCount), width / 50, height / 20);
 }
 
 function animate() {
